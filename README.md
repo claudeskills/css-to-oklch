@@ -1,89 +1,80 @@
-# SVG Cleaner Skill
+# ![css2oklch](./assets/css-to-oklch.png)
 
-![SVG Cleaner](./assets/svg-cleaner-banner.svg)
+# CSS to OKLCH Skill
 
-A Claude skill for cleaning, optimizing, and batch-processing SVG files with support for sprite generation.
+Skill de Claude para convertir colores CSS al espacio de color OKLCH.
 
-## Features
+## Características
 
-- 🧹 **Clean SVG files**: Merge paths, remove backgrounds, convert to currentColor
-- ⚡ **Optimize**: SVGO integration with fallback for manual optimization
-- 📦 **Batch processing**: Process entire folders of SVGs at once
-- 🎨 **Sprite generation**: Automatically create SVG sprites from folders
-- 🎯 **Element extraction**: Extract specific portions (e.g., single letters from logos)
+- 🎨 **Convierte todos los formatos**: hex, rgb, rgba, hsl, hsla
+- 📁 **Procesamiento por lotes**: Procesa proyectos enteros de una vez
+- 💬 **Preserva originales**: Añade el color original como comentario
+- 🔍 **Modo dry run**: Previsualiza cambios antes de aplicarlos
+- 📦 **Múltiples tipos de archivo**: CSS, SCSS, SASS, Less, PostCSS
 
-## What It Does
+## ¿Por qué OKLCH?
 
-### Single File Processing
-- Merges multiple paths into one
-- Removes backgrounds and clipPaths
-- Applies `currentColor` for flexible theming
-- Optimizes with SVGO (25-35% size reduction)
+OKLCH es un espacio de color perceptualmente uniforme que hace la manipulación de colores más intuitiva:
+- Ajustes de luminosidad predecibles
+- Saturación consistente entre tonos
+- Mejor para design systems y theming
 
-### Batch Folder Processing
-- Finds all `.svg` files in a folder
-- Cleans each SVG individually
-- Saves as `filename-cc.svg`
-- Creates combined sprite as `foldername-sprite-cc.svg`
+## Instalación
 
-## Installation
+1. Descarga `css-to-oklch.skill`
+2. Abre Claude.ai → Settings → Skills
+3. Sube el archivo `.skill`
 
-1. Download `svg-cleaner.skill`
-2. Open Claude.ai
-3. Go to Settings → Skills
-4. Upload the `.skill` file
+## Ejemplos de Uso
 
-## Usage Examples
-
-**Clean a single SVG:**
+**Convertir un archivo:**
 ```
-Clean this logo SVG and apply currentColor
+Convierte los colores de styles.css a OKLCH
 ```
 
-**Process a folder:**
+**Procesar proyecto entero:**
 ```
-Clean all SVGs in /path/to/icons/ and create a sprite
-```
-
-**Extract specific element:**
-```
-Extract just the "g" letter from this logo
+Convierte todos los archivos CSS en /src a OKLCH
 ```
 
-## Output Files
-
-**Single file mode:**
-- `filename-clean.svg` - Merged paths, no background
-- `filename-currentcolor.svg` - With currentColor applied
-- `filename-optimized.svg` - SVGO processed
-
-**Batch folder mode:**
-- `filename-cc.svg` - Each cleaned SVG
-- `foldername-sprite-cc.svg` - Combined sprite with all icons
-
-## Sprite Usage
-
-Use the generated sprites in HTML:
-
-```html
-<svg>
-  <use href="icons-sprite-cc.svg#logo"/>
-</svg>
+**Previsualizar cambios:**
+```
+Muéstrame qué colores cambiarían en /styles (dry run)
 ```
 
-## Requirements
+## Ejemplo de Salida
 
-- Claude Desktop or Claude.ai with Skills enabled
-- Optional: Node.js (for SVGO optimization)
+```css
+/* Antes */
+:root {
+  --primary: #ff0000;
+  --background: rgb(255, 255, 255);
+}
 
-## License
+/* Después */
+:root {
+  --primary: oklch(62.79% 0.257 29.23) /* #ff0000 */;
+  --background: oklch(100% 0 0) /* rgb(255, 255, 255) */;
+}
+```
 
-MIT License - See LICENSE file for details
+## Tipos de Archivo Soportados
 
-## Contributing
+- `.css`
+- `.scss` / `.sass`
+- `.less`
+- `.styl`
+- `.pcss` / `.postcss`
 
-Issues and pull requests welcome!
+## Requisitos
 
-## Author
+- Claude Desktop o Claude.ai con Skills habilitadas
+- Python con coloraide (`pip install coloraide`)
 
-Created by Daniel Serrano for Griddo
+## Licencia
+
+MIT License - Ver archivo LICENSE para detalles
+
+## Autor
+
+Creado por Daniel Serrano para Griddo
